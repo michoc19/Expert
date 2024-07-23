@@ -18,9 +18,14 @@ const navLinks = [
     display: 'Services'
   },
   {
+    path: '/event',
+    display: 'Event'
+  },
+  {
     path: '/contact',
     display: 'Contact'
   },
+  
 ];
 
 const Header = () => {
