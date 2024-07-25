@@ -6,9 +6,10 @@ import Services from '../pages/Services';
 import Contact from '../pages/Contact';
 import Experts from '../pages/Expert/Experts';
 import Expertdetail from '../pages/Expert/Expertdetail';
-import EventBook from '../pages/EventBook'; // Ensure this import path is correct
+// import EventBook from '../pages/EventBook'; // Ensure this import path is correct
 import Login from '../pages/Login';
-import EventTicket from '../pages/EventTicket';
+// import EventTicket from '../pages/EventTicket';
+import EventCreat from '../pages/EventCreat'
 
 const Routers = () => {
   return (
@@ -21,8 +22,9 @@ const Routers = () => {
       <Route path='/contact' element={<Contact />} />
       <Route path='/experts' element={<Experts />} />
       <Route path='/experts/:id' element={<Expertdetail />} />
-      <Route path='/event' element={<EventBook />} />
-      <Route path='/eventticket' element={<EventTicket />} />
+      {/* <Route path='/event' element={<EventBook />} />
+      <Route path='/eventticket' element={<EventTicket />} /> */}
+      <Route path='/event' element={<EventCreat/>} />
     </Routes>
   );
 };
