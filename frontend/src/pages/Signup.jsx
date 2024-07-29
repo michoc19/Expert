@@ -52,7 +52,7 @@ const submitHandler = async event=>{
                   type="text"
                   placeholder="Full Name"
                   name="fullname"
-                  value={formData.name}
+                  value={formData.Fullname}
                   onChange={handleInputChange}
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   required
