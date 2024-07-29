@@ -35,7 +35,7 @@ export const getSingleeUser=async(req,res)=>{
 
         res.status(200).json({succes:true,message:'user found',data:user});
     } catch (error) {
-        res.status(404).json({succes:false,message:'No user found',data:updateUser}) ;  
+        res.status(404).json({succes:false,message:'No user found'}) ;  
     }
 }
 
@@ -46,6 +46,6 @@ export const getAllUser=async(req,res)=>{
 
         res.status(200).json({succes:true,message:'users found',data:users});
     } catch (error) {
-        res.status(404).json({succes:false,message:'Not found',data:updateUser}) ;  
+        res.status(404).json({succes:false,message:'Not found'}) ;  
     }
 }
