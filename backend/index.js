@@ -5,6 +5,9 @@ import mongoose from "mongoose"
 import dotenv from "dotenv"
 import autRoute from './routes/auth.js'
 import userRoute from "./routes/user.js"
+import ExpertRoute from "./routes/expert.js"
+import ReviewRoute from "./routes/review.js"
+
 
 dotenv.config()
  
@@ -37,6 +40,10 @@ app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use('/api/v1/auth',autRoute);
 app.use('/api/v1/users',userRoute);
+app.use('/api/v1/experts',ExpertRoute);
+app.use('/api/v1/reviews',ReviewRoute);
+
+
 
 
 app.listen(port,()=> {
