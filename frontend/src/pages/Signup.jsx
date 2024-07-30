@@ -7,7 +7,7 @@ const Signup = () => {
  const [selecteFile,setselectedFile]=useState(null)
  const [previewURL,setpreviewURL]=useState("")
   const [formData, setFormData] = useState({
-    name:'',
+    Fullname:'',
     email: '',
     password: '',
     photo:'',
@@ -51,7 +51,7 @@ const submitHandler = async event=>{
                 <input
                   type="text"
                   placeholder="Full Name"
-                  name="fullname"
+                  name="Fullname"
                   value={formData.Fullname}
                   onChange={handleInputChange}
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
