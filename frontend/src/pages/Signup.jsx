@@ -9,6 +9,7 @@ const Signup = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewURL, setPreviewURL] = useState("");
   const [formData, setFormData] = useState({
+<<<<<<< HEAD
     fullname: "",
     email: "",
     password: "",
@@ -16,6 +17,14 @@ const Signup = () => {
     gender: "",
     role: "",
   });
+=======
+    Fullname:'',
+    email: '',
+    password: '',
+    photo:'',
+    gender:'',
+    role:'',
+>>>>>>> 2e04b94306e14f3994cd05f8355279f34e6e0c7d
 
   const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -60,8 +69,13 @@ const Signup = () => {
                 <input
                   type="text"
                   placeholder="Full Name"
+<<<<<<< HEAD
                   name="fullname"
                   value={formData.fullname}
+=======
+                  name="Fullname"
+                  value={formData.Fullname}
+>>>>>>> 2e04b94306e14f3994cd05f8355279f34e6e0c7d
                   onChange={handleInputChange}
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   required
