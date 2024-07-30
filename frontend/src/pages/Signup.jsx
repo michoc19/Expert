@@ -1,55 +1,38 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import signupImg from "../assets/images/signup.gif";
-import avatarImg from "../assets/images/avatar.png";
+import avatarImg from "../assets/images/avatar.png"; // Ensure this path is correct
 import uploadImageToCloudinary from "../utils/uploadCloudinary";
-
-
 const Signup = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [previewURL, setPreviewURL] = useState("");
+ const [selecteFile,setselectedFile]=useState(null)
+ const [previewURL,setpreviewURL]=useState("")
   const [formData, setFormData] = useState({
-<<<<<<< HEAD
-    fullname: "",
-    email: "",
-    password: "",
-    photo: "",
-    gender: "",
-    role: "",
-  });
-=======
     Fullname:'',
     email: '',
     password: '',
     photo:'',
     gender:'',
     role:'',
->>>>>>> 2e04b94306e14f3994cd05f8355279f34e6e0c7d
 
-  const handleInputChange = (e) => {
+});
+
+const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleFileInputChange = async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setSelectedFile(file);
-      setPreviewURL(URL.createObjectURL(file)); // Set preview URL
-      const data = await uploadImageToCloudinary(file);
-      setFormData({ ...formData, photo: data.url }); // Assuming the returned object has a 'url' property
-    }
-  };
-
-  const submitHandler = async (event) => {
-    event.preventDefault();
-    console.log(formData);
-    // Implement form submission logic here (e.g., API call)
-  };
-
+};
+const handleFileInputChange=async (event)=>{
+  const file= event.target.files[0]
+  const data = await uploadImageToCloudinary(file)
+  console.log(data)
+}
+const submitHandler = async event=>{
+  console.log(formData);
+  event.preventDefault();
+}
   return (
     <section className="px-5 xl:px-0">
       <div className="max-w-[1170px] mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* img box */}
           <div className="hidden lg:block bg-primaryColor rounded-l-lg">
             <figure className="rounded-l-lg">
               <img
@@ -60,6 +43,7 @@ const Signup = () => {
             </figure>
           </div>
 
+          {/* sign up form */}
           <div className="rounded-l-lg lg:pl-16 py-10">
             <h3 className="text-headingColor text-[22px] leading-9 font-bold mb-10">
               Create an <span className="text-primaryColor">account</span>
@@ -69,13 +53,8 @@ const Signup = () => {
                 <input
                   type="text"
                   placeholder="Full Name"
-<<<<<<< HEAD
                   name="fullname"
-                  value={formData.fullname}
-=======
-                  name="Fullname"
                   value={formData.Fullname}
->>>>>>> 2e04b94306e14f3994cd05f8355279f34e6e0c7d
                   onChange={handleInputChange}
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   required
@@ -114,7 +93,6 @@ const Signup = () => {
                     onChange={handleInputChange}
                     className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
                   >
-                    <option value="">Select</option>
                     <option value="admin">Admin</option>
                     <option value="expert">Expert</option>
                     <option value="user">User</option>
@@ -142,7 +120,7 @@ const Signup = () => {
               <div className="mb-5 flex items-center gap-3">
                 <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor flex items-center justify-center">
                   <img
-                    src={previewURL || avatarImg}
+                    src={avatarImg}
                     alt="Avatar"
                     className="w-full rounded-full"
                   />
