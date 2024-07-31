@@ -2,26 +2,18 @@ import  { useState } from "react";
 import { Link,useNavigate } from "react-router-dom"; // Import Link from react-router-dom
 import signupImg from "../assets/images/signup.gif";
 import avatarImg from "../assets/images/avatar.png"; // Ensure this path is correct
-<<<<<<< HEAD
 import uploadImageToCloudinary from "../utils/uploadCloudinary.js";
 import { BASE_URL } from "../config.js";
 import { toast } from "react-toastify";
 import HashLoader from "react-spinners/HashLoader.js";
 
-=======
-import uploadImageToCloudinary from "../utils/uploadCloudinary";
->>>>>>> 650f0374644e8600ff1a643acc5ecfab08e3b485
 const Signup = () => {
  const [selectedFile, setselectedFile]=useState(null);
  const [previewURL, setpreviewURL]=useState("");
  const [loading, setLoading] = useState(false);
 
   const [formData, setFormData] = useState({
-<<<<<<< HEAD
     FullName:'',
-=======
-    Fullname:'',
->>>>>>> 650f0374644e8600ff1a643acc5ecfab08e3b485
     email: '',
     password: '',
     photo:selectedFile,
@@ -35,7 +27,6 @@ const navigate = useNavigate();
 const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 };
-<<<<<<< HEAD
 
 const handleFileInputChange = async (event)=>{
   const file= event.target.files[0];
@@ -89,17 +80,6 @@ const submitHandler = async event=>{
   }
 };
 
-=======
-const handleFileInputChange=async (event)=>{
-  const file= event.target.files[0]
-  const data = await uploadImageToCloudinary(file)
-  console.log(data)
-}
-const submitHandler = async event=>{
-  console.log(formData);
-  event.preventDefault();
-}
->>>>>>> 650f0374644e8600ff1a643acc5ecfab08e3b485
   return (
     <section className="px-5 xl:px-0">
       <div className="max-w-[1170px] mx-auto">
@@ -125,13 +105,8 @@ const submitHandler = async event=>{
                 <input
                   type="text"
                   placeholder="Full Name"
-<<<<<<< HEAD
                   name="FullName"
                   value={formData.FullName}
-=======
-                  name="fullname"
-                  value={formData.Fullname}
->>>>>>> 650f0374644e8600ff1a643acc5ecfab08e3b485
                   onChange={handleInputChange}
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   required
