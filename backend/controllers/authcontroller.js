@@ -10,7 +10,10 @@ const  generateToken=user=>{
 } 
 
 export const register =async(req,res)=>{
-    const {email,password, FullName,role,phone,gender} =req.body
+    const {email,password, FullName,role,photo,gender} =req.body;
+
+    console.log('Request body:', req.body);
+
     try {
         let user = null
         if(role=='User'){
@@ -34,7 +37,7 @@ export const register =async(req,res)=>{
                 FullName,
                 email,
                 password:hashPassword,
-                phone,
+                photo,
                 gender,
                 role,
             });
@@ -45,7 +48,7 @@ export const register =async(req,res)=>{
                 FullName,
                 email,
                 password:hashPassword,
-                phone,
+                photo,
                 gender,
                 role,
             });

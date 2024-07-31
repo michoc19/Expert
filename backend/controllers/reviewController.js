@@ -3,9 +3,10 @@ import Review from "../models/ReviewSchema.js"
 
 
 export const getAllReviews = async (req,res) =>{
+    const expertId = req.params.expertId;
 
     try {
-        const reviews =await Review.find({});
+        const reviews =await Review.find({ expert: expertId });
 
         res.status(200).json({success:true,message:"Successful",data:reviews}); 
     } catch (error) {
