@@ -1,31 +1,85 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import  { useState } from "react";
+import { Link,useNavigate } from "react-router-dom"; // Import Link from react-router-dom
 import signupImg from "../assets/images/signup.gif";
 import avatarImg from "../assets/images/avatar.png"; // Ensure this path is correct
+import uploadImageToCloudinary from "../utils/uploadCloudinary.js";
+import { BASE_URL } from "../config.js";
+import { toast } from "react-toastify";
+import HashLoader from "react-spinners/HashLoader.js";
 
 const Signup = () => {
- const [selecteFile,setselectedFile]=useState(null)
- const [previewURL,setpreviewURL]=useState("")
+ const [selectedFile, setselectedFile]=useState(null);
+ const [previewURL, setpreviewURL]=useState("");
+ const [loading, setLoading] = useState(false);
+
   const [formData, setFormData] = useState({
-    name:'',
+    FullName:'',
     email: '',
     password: '',
-    photo:'',
+    photo:selectedFile,
     gender:'',
-    role:'',
+    role:'User',
 
 });
+
+const navigate = useNavigate();
 
 const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 };
-const handleFileInputChange=async (event)=>{
-  const file= event.target.files[0]
-  console.log(file)
-}
+
+const handleFileInputChange = async (event)=>{
+  const file= event.target.files[0];
+  
+ try {
+  const data = await uploadImageToCloudinary(file);
+
+  console.log(data);
+
+  setpreviewURL(data.secure_url);
+  setselectedFile(data.secure_url);
+  setFormData({ ...formData, photo: data.secure_url });
+
+ } catch (error) {
+  toast.error('Failed to upload image');
+  console.error(error);
+ }
+
+};
+
 const submitHandler = async event=>{
-  event.preventDefault
-}
+  event.preventDefault();
+  setLoading(true);
+  console.log(formData);
+
+
+  try {
+    const res = await fetch(`${BASE_URL}/api/v1/auth/register`,{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
+
+    const responseData = await res.json();
+
+    console.log("Server response:", responseData);//******** */
+
+    if(!res.ok){
+      throw new Error(responseData.message);
+    }
+
+    setLoading(false);
+    toast.success(responseData.message);
+    navigate('/login');
+
+  } catch (error) {
+    toast.error(error.message);
+    setLoading(false);
+  }
+};
+
   return (
     <section className="px-5 xl:px-0">
       <div className="max-w-[1170px] mx-auto">
@@ -51,8 +105,8 @@ const submitHandler = async event=>{
                 <input
                   type="text"
                   placeholder="Full Name"
-                  name="fullname"
-                  value={formData.name}
+                  name="FullName"
+                  value={formData.FullName}
                   onChange={handleInputChange}
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   required
@@ -92,8 +146,8 @@ const submitHandler = async event=>{
                     className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
                   >
                     <option value="admin">Admin</option>
-                    <option value="expert">Expert</option>
-                    <option value="user">User</option>
+                    <option value="Expert">Expert</option>
+                    <option value="User">User</option>
                   </select>
                 </div>
 
@@ -115,14 +169,14 @@ const submitHandler = async event=>{
                 </div>
               </div>
 
-              <div className="mb-5 flex items-center gap-3">
-                <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor flex items-center justify-center">
-                  <img
-                    src={avatarImg}
-                    alt="Avatar"
-                    className="w-full rounded-full"
-                  />
-                </figure>
+              <div className="mb-5 flex items-center gap-3">          
+              <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor flex items-center justify-center">
+      <img
+        src={avatarImg}
+        alt="Avatar"
+        className="w-full rounded-full"
+      />
+    </figure>
 
                 <div className="relative w-[130px] h-[50px]">
                   <input
@@ -144,10 +198,11 @@ const submitHandler = async event=>{
 
               <div className="mt-7">
                 <button
+                disabled={loading && true}
                   type="submit"
                   className="w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3"
                 >
-                  Sign Up
+                 {loading ? (<HashLoader size={35} color="#ffffff"/> ) : ('Sign Up') } 
                 </button>
               </div>
               <p className="mt-5 text-center text-textColor">
