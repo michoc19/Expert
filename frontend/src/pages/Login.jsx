@@ -1,5 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import React, { useState,useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Import Link from react-router-dom
+import { BASE_URL } from "../config.js";
+import { toast } from "react-toastify";
+import {  authContext } from "../context/AuthContex.jsx"
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -7,14 +10,57 @@ const Login = () => {
         password: ''
     });
 
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+    const{ dispatch }=useContext(authContext);
+
     const handleInputChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission logic here
-    };
+    const submitHandler = async event=>{
+        event.preventDefault();
+        setLoading(true);
+        console.log(formData);
+      
+      
+        try {
+          const res = await fetch(`${BASE_URL}/api/v1/auth/login`,{
+            method:'POST',
+            headers:{
+              'Content-Type':'application/json'
+            },
+            body: JSON.stringify(formData)
+          });
+      
+          const responseData = await res.json();
+      
+          console.log("Server response:", responseData);//******** */
+      
+          if(!res.ok){
+            throw new Error(responseData.message);
+          }
+
+          dispatch({
+            type:'LOGIN_SUCCESS',
+            payload:{
+                user:responseData.data,
+                token:responseData.token,
+                role:responseData.role,
+            },
+          });
+
+          console.log(responseData,"login data");
+      
+          setLoading(false);
+          toast.success(responseData.message);
+          navigate('/home');
+      
+        } catch (error) {
+          toast.error(error.message);
+          setLoading(false);
+        }
+      };
 
     return (
         <section className="px-5 lg:px-0">
@@ -22,7 +68,7 @@ const Login = () => {
                 <h3 className="text-headingColor text-[22px] leading-9 font-bold mb-10">
                     Hello! <span className="text-primaryColor">Welcome</span> Back 👋
                 </h3>
-                <form className="py-4 md:py-0" onSubmit={handleSubmit}>
+                <form className="py-4 md:py-0" onSubmit={submitHandler}>
                     <div className="mb-5">
                         <input
                             type="email"
