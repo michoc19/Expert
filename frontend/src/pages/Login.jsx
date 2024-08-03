@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'; // Import Link from react-
 import { BASE_URL } from "../config.js";
 import { toast } from "react-toastify";
 import {  authContext } from "../context/AuthContex.jsx"
+import HashLoader from "react-spinners/HashLoader.js";
+
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -92,7 +94,9 @@ const Login = () => {
                         />
                     </div>
                     <div className='mt-7'>
-                        <button type="submit" className='w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3'>Login</button>
+                        <button type="submit" className='w-full bg-primaryColor text-white text-[18px] leading-[30px] rounded-lg px-4 py-3'>
+                            { loading ?<HashLoader size={35} color="#ffffff" /> : 'Login'}
+                        </button>
                     </div>
                     <p className='mt-5 text-center text-textColor'>
                         Don't have an account?{' '}

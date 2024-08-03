@@ -1,4 +1,5 @@
-import Expert from "../models/ExpertSchema.js"
+import Expert from "../models/ExpertSchema.js";
+import Booking from "../models/BookingSchema.js";
 
 export const updateExpert=async(req,res)=>{
     const id =req.params.id;
@@ -62,4 +63,26 @@ export const getAllExpert=async(req,res)=>{
     } catch (error) {
         res.status(404).json({succes:false,message:'Not found'}) ;  
     }
-}
+};
+
+export const getExpertProfile = async(req,res)=>{
+    const expertId =req.expertId;
+
+    try {
+        const expert = await Expert.findById(expertId);
+
+        if(!expert){
+            res.status(404).json({succes:false,message:' Expert Not found'});  
+        }
+
+        const {password, ...rest}=expert._doc;
+        const appointments =await Bookin.find({expert:expertId});
+
+        res.status(200).json({succes:true,message:'profil info is getting',data:{...rest,appointments}});
+
+    } catch (error) {
+        res.status(500).json({succes:false,message:'Something wnet wrong,can not get'});  
+    }
+};
+
+

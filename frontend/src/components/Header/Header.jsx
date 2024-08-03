@@ -74,14 +74,15 @@ const Header = () => {
             </ul>
           </nav>
           <div className='flex items-center gap-4'>
-            <div className='hidden'>
-              <Link to='/profile'>
+            { token && user ?  (<div >
+              <Link to={`${role ==='Expert' ? '/experts/profile/me' : '/users/profile/me'}`}>
                 <figure className='w-[35px] h-[35px] rounded-full cursor-pointer'>
-                  <img src={userImg} className="w-full rounded-full" alt="User" />
+                  <img src={user?.photo} className="w-full rounded-full" alt="" />
                 </figure>
+                <h2>{user ? user.FullName : 'Guest'}</h2> 
               </Link>
             </div>
-            <h1>{user ? user.FullName : 'Guest'}</h1>
+          ) : (
             <div>
               <Link to="/login">
                 <button className='bg-primaryColor py-2 px-6 text-white font-[600] h-[44px] flex items-center justify-center rounded-[50px]'>
@@ -92,6 +93,7 @@ const Header = () => {
                 <BiMenu className='w-6 h-6 cursor-pointer' />
               </span>
             </div>
+            )}
           </div>
         </div>
       </div>
