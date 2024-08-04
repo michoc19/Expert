@@ -41,7 +41,7 @@ const Login = () => {
       
           if(!res.ok){
             throw new Error(responseData.message);
-          }
+          } 
 
           dispatch({
             type:'LOGIN_SUCCESS',
