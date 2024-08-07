@@ -46,6 +46,8 @@ const MyAccount = () => {
             <p className="text-[15px] leading-[30px] text-headingColor font-bold">
               gender : {userData.gender}
             </p>
+            <p className="text-[15px] leading-[30px] text-headingColor font-bold">
+            Languages: {Array.isArray(userData.languages) && userData.languages.length > 0 ? userData.languages.join(' ') : 'No languages selected'}            </p>
           </div>
           <div className="mt-[50px] md:mt-[100px]">
             <button

@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import HashLoader from "react-spinners/HashLoader.js";
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import Select from 'react-select'; 
 import { authContext } from '../../context/AuthContex.jsx';
 
 
@@ -21,6 +22,7 @@ const Profile = ({user}) =>{
        FullName:'',
        email: '',
        phone: '',
+       languages:[],
        photo:null,
        gender:'',
        role:'User',
@@ -34,12 +36,20 @@ const Profile = ({user}) =>{
    
    const navigate = useNavigate();
    useEffect(()=>{
-    setFormData({FullName:user.FullName,email:user.email,phone:user.phone,photo:user.photo,gender:user.gender,role:user.role,_id:user._id})
-   },[user]);
+    setFormData({FullName:user.FullName,email:user.email,phone:user.phone,languages: user.languages || [],Time_zone:user.Time_zone,photo:user.photo,gender:user.gender,role:user.role,_id:user._id})
+},[user]);
    
    const handleInputChange = (e) => {
-       setFormData({ ...formData, [e.target.name]: e.target.value });
-   };
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+};
+
+// Handle changes in react-select component
+const handleSelectChange = (selectedOptions) => {
+    // Convert selectedOptions to an array of values
+    const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
+    setFormData({ ...formData, languages: selectedValues });
+};
 
   
 const handleChangeNumber = (value) => {
@@ -93,6 +103,11 @@ const handleChangeNumber = (value) => {
    const submitHandler = async (event)=>{
      event.preventDefault();
 
+     if (formData.languages.length === 0) {
+        toast.error('Please select at least one language.');
+        return;
+    }
+
      setLoading(true);
      console.log('Submitting form with data:', formData);    
    
@@ -128,6 +143,12 @@ const handleChangeNumber = (value) => {
             setLoading(false); // Ensure loading is stopped regardless of success or failure
         }
    };
+
+   const languageOptions = [
+    { value: 'French', label: 'French' },
+    { value: 'English', label: 'English' },
+    { value: 'Arabic', label: 'Arabic' }
+];
    
 
     return(
@@ -141,8 +162,7 @@ const handleChangeNumber = (value) => {
                   value={formData.FullName}
                   onChange={handleInputChange}
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
-                  aria-readonly
-                  readOnly
+                  required
                 />
               </div>
               <div className="mb-5">
@@ -153,8 +173,7 @@ const handleChangeNumber = (value) => {
                   value={formData.email}
                   onChange={handleInputChange}
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
-                  aria-readonly
-                  readOnly
+                  required
                 />
               </div>
               <div className="mb-5">
@@ -168,9 +187,23 @@ const handleChangeNumber = (value) => {
                   required
                 />
               </div>
+              <div className="mb-5">
+              <label className="text-headingColor font-bold text-[16px] leading-7 mr-3">
+              Spoken languages :
+                  </label>
+                <Select
+                  isMulti
+                  name="languages"
+                  options={languageOptions}
+                  value={languageOptions.filter(option => formData.languages.includes(option.value))}
+                  classNamePrefix="select"
+                  onChange={handleSelectChange}
+                  className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
+                  required
+                />
+              </div>
+              
               <div className="flex flex-wrap gap-5 mb-5">
-                
-
                 <div className="flex items-center">
                   <label className="text-headingColor font-bold text-[16px] leading-7 mr-3">
                     Gender:
@@ -190,13 +223,12 @@ const handleChangeNumber = (value) => {
 
               <div className="mb-5 flex items-center gap-3">          
               {formData.photo && (<figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor flex items-center justify-center">
-      <img
-        src={ previewURL || formData.photo }//formData.photo
-        alt="Avatar"
-        className="w-full rounded-full"
-      />
-    </figure>)
-
+                <img
+                src={ previewURL || formData.photo }//formData.photo
+                alt="Avatar"
+                className="w-full rounded-full"
+                />
+                </figure>)
               }
 
                 <div className="relative w-[130px] h-[50px]">
