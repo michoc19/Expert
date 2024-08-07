@@ -11,6 +11,7 @@ export const updateUser=async(req,res)=>{
         res.status(200).json({succes:true,message:'Successfully updated',data:updateUser});
 
     } catch (error) {
+        console.error(error);
         res.status(500).json({succes:false,message:'Failed to updated'}) ;  
     }
 }
@@ -67,7 +68,7 @@ export const getUserProfile = async(req,res)=>{
         res.status(200).json({succes:true,message:'profil info is getting',data:{...rest}});
 
     } catch (error) {
-        res.status(500).json({succes:false,message:'Something wnet wrong,can not get'});  
+        res.status(500).json({succes:false,message:'Something went wrong,cannot get'});  
     }
 };
 
@@ -85,6 +86,6 @@ export const getMyAppointments = async(req,res)=>{
 
         
     } catch (error) {
-        res.status(500).json({succes:false,message:'Something wnet wrong,can not get'});  
+        res.status(500).json({succes:false,message:'Something went wrong,cannot get'});  
     }
 }

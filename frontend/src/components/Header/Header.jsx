@@ -74,14 +74,21 @@ const Header = () => {
             </ul>
           </nav>
           <div className='flex items-center gap-4'>
-            { token && user ?  (<div >
-              <Link to={`${role ==='Expert' ? '/experts/profile/me' : '/users/profile/me'}`}>
-                <figure className='w-[35px] h-[35px] rounded-full cursor-pointer'>
-                  <img src={user?.photo} className="w-full rounded-full" alt="" />
-                </figure>
-                <h2>{user ? user.FullName : 'Guest'}</h2> 
-              </Link>
-            </div>
+            { token && user ?  (<div className='flex items-center gap-2'>
+                {/* Container for user photo and name, aligned horizontally */}
+                <Link to={`${role === 'Expert' ? '/experts/profile/me' : '/users/profile/me'}`}>
+                  {/* User photo */}
+                  <figure className='w-[35px] h-[35px] rounded-full overflow-hidden'>
+                    <img src={user.photo || userImg} className="w-full h-full object-cover" alt="User" />
+                  </figure>
+                </Link>
+                {/* User name */}
+                <div>
+                  <Link to={`${role === 'Expert' ? '/experts/profile/me' : '/users/profile/me'}`}>
+                    <h2 className='text-lg font-semibold'>{user ? user.FullName : 'Guest'}</h2>
+                  </Link>
+                </div>
+              </div>
           ) : (
             <div>
               <Link to="/login">

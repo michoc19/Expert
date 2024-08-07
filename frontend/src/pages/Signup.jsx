@@ -28,23 +28,42 @@ const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 };
 
+const convertToBase64 = (file) => {
+  return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+  });
+};
+
+
 const handleFileInputChange = async (event)=>{
   const file= event.target.files[0];
-  
+  if (!file) {
+    toast.error('No file selected');
+    return;
+  }
+
+  const maxSize = 5 * 1024 * 1024; // 5 MB
+  if (file.size > maxSize) {
+    toast.error('File size exceeds 5 MB. Please select a smaller file.');
+    return;
+  }
+
  try {
-  const data = await uploadImageToCloudinary(file);
+  const reader = new FileReader();
+    reader.readAsDataURL(file);
 
-  console.log(data);
+    reader.onloadend = () => {
+      const base64Image = reader.result;
+      setpreviewURL(base64Image);
+      setselectedFile(base64Image);
+      setFormData({ ...formData, photo: base64Image });
 
-  setpreviewURL(data.secure_url);
-  setselectedFile(data.secure_url);
-  setFormData({ ...formData, photo: data.secure_url });
-
- } catch (error) {
-  toast.error('Failed to upload image');
-  console.error(error);
+ } }catch (error) {
+  console.error('Upload error:', error);
  }
-
 };
 
 const submitHandler = async event=>{
@@ -161,7 +180,6 @@ const submitHandler = async event=>{
                     onChange={handleInputChange}
                     className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
                   >
-                    <option value="">Select</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
@@ -172,7 +190,7 @@ const submitHandler = async event=>{
               <div className="mb-5 flex items-center gap-3">          
               <figure className="w-[60px] h-[60px] rounded-full border-2 border-solid border-primaryColor flex items-center justify-center">
       <img
-        src={avatarImg}
+        src={previewURL || avatarImg}//previewURL
         alt="Avatar"
         className="w-full rounded-full"
       />
@@ -192,7 +210,8 @@ const submitHandler = async event=>{
                     className="absolute top-0 left-0 w-full h-full flex items-center px-[0.75rem] py-[0.375rem] text-[15px] leading-6 overflow-hidden bg-[#0066ff46] text-headingColor font-semibold rounded-lg truncate cursor-pointer"
                   >
                     Upload Photo
-                  </label>
+                  </label><br /><br />
+                  <p className="text-red-500 mt-2  text-[15px]">(Max: 5 MB)</p>
                 </div>
               </div>
 

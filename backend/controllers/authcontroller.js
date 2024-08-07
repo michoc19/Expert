@@ -66,7 +66,7 @@ export const login =async(req,res)=>{
     const {email} =req.body
 
     try {
-        let user=null
+        let user=null;
         const USer=await User.findOne({email})
         const expert=await Expert.findOne({email})
 

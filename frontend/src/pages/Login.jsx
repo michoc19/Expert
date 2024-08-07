@@ -52,7 +52,6 @@ const Login = () => {
             },
           });
 
-          console.log(responseData,"login data");
       
           setLoading(false);
           toast.success(responseData.message);
