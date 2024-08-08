@@ -66,7 +66,7 @@ export const getAllExpert=async(req,res)=>{
 };
 
 export const getExpertProfile = async(req,res)=>{
-    const expertId =req.expertId;
+    const expertId =req.params.id;
 
     try {
         const expert = await Expert.findById(expertId);
@@ -76,7 +76,7 @@ export const getExpertProfile = async(req,res)=>{
         }
 
         const {password, ...rest}=expert._doc;
-        const appointments =await Bookin.find({expert:expertId});
+        const appointments =await Booking.find({expert:expertId});
 
         res.status(200).json({succes:true,message:'profil info is getting',data:{...rest,appointments}});
 

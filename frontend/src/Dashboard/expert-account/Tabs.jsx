@@ -66,4 +66,4 @@ const Tabs = ({ tab, setTab }) => {
   );
 };
 
-export default Tabs;
+export default Tabs; 

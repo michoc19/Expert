@@ -32,7 +32,7 @@ const connectDB =async()=>{
     } catch (err) {
         console.log("MongoDB is connection failed");
     }
-};
+}; 
    
 //midlleware
 app.use(express.json({ limit: '10mb' }));

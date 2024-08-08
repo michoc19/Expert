@@ -49,7 +49,7 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleStickyHeader);
   }, []);
 
-  const toggleMenu = ()=>menuRef.current.classList.toggle('show_menu')
+  const toggleMenu = () => menuRef.current.classList.toggle('show_menu');
   return (
     <header className='header flex items-center' ref={headerRef}>
       <div className='container mx-auto px-4'>
