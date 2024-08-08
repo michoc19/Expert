@@ -66,7 +66,7 @@ export const getAllExpert=async(req,res)=>{
 };
 
 export const getExpertProfile = async(req,res)=>{
-    const expertId =req.params.id;
+    const expertId =req.expertId;
 
     try {
         const expert = await Expert.findById(expertId);
