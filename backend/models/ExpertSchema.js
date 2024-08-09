@@ -4,7 +4,7 @@ const ExpertSchema = new mongoose.Schema({
   FullName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  phone: { type: Number, },
+  phone: { type: String, },
   languages:[{type:String}],
   photo: { type: String, },
   ticketPrice: { type: Number },

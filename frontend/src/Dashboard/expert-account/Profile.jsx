@@ -1,6 +1,7 @@
 import  {useContext, useEffect,useState }  from "react";
 import { Link,useNavigate } from "react-router-dom"; // Import Link from react-router-dom
 import { toast } from "react-toastify";
+import { BASE_URL,token  } from "../../config.js";
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 import HashLoader from "react-spinners/HashLoader.js";
@@ -31,6 +32,7 @@ const Profile =({user}) => {
         experiences:[],
         timeSlots:[],
         about:'',
+        _id:''
         
     })
 
@@ -51,13 +53,13 @@ const Profile =({user}) => {
 
     const UpdateProfilHandler = ()=>{
         e.preventDefault();
-        dispatch({ type: 'UPDATE_USER', payload: { photo: formData.photo } });
+        dispatch({ type: 'UPDATE_USER', });
     };
 
     useEffect(()=>{
         setFormData({FullName:user.FullName,email:user.email,phone:user.phone,languages: user.languages || [],
-            bio:user.bio,photo:user.photo,gender:user.gender,specialization:user.specialization,role:user.role,
-            ticketPrice:user.ticketPrice,about:user.about,_id:user._id})
+            bio:user.bio  || '' ,photo:user.photo,gender:user.gender,specialization:user.specialization  || '' ,role:user.role,
+            ticketPrice:user.ticketPrice  || 0,about:user.about  || '' ,_id:user._id  || '' })
     },[user]);
 
 
