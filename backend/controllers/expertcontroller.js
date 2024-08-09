@@ -66,13 +66,10 @@ export const getAllExpert=async(req,res)=>{
 };
 
 export const getExpertProfile = async(req,res)=>{
-<<<<<<< HEAD
     console.log('Expert ID:', req.userId);
    // const expertId =req.expertId;
     console.log(`Looking for expert with ID: ${req.userId}`);
-=======
     const expertId =req.expertId;
->>>>>>> 5d679dabca2f96275674d97b56e609422dd972ce
 
     try {
         const expert = await Expert.findById(req.userId);
