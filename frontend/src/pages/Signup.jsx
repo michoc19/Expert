@@ -180,8 +180,8 @@ const submitHandler = async event=>{
                     onChange={handleInputChange}
                     className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
                   >
-                    <option value="male">Male</option>
                     <option value="female">Female</option>
+                    <option value="male">Male</option>
                     <option value="other">Other</option>
                   </select>
                 </div>

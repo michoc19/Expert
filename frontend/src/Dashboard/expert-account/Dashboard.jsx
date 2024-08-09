@@ -1,11 +1,12 @@
 import  {useState}  from "react";
-import Loader from "../../components/loader/loading";
+import Loading from "../../components/loader/loading";
 import Error from "../../components/Error/Error";
-import usefetchdata from "../../hooks/usefetchdata";
+import { usefetchdata } from "../../hooks/usefetchdata";
 import { BASE_URL } from "../../config";
 import Tabs from "./Tabs";
 import starIcon from "../../assets/images/starIcon.png";
 import ExpertAbout from '../../pages/Expert/ExpertAbout';
+import Profile from './Profile'
 
 const Dashboard = () => {
   const { data, loading, error } = usefetchdata(`${BASE_URL}/api/v1/experts/profile/me`);
@@ -14,8 +15,8 @@ const Dashboard = () => {
 
   return (
     <section className="max-w-[1170px] px-5 mx-auto">
-      {loading && <Loader />}
-      {error && <Error />}
+      {loading && <Loading/>}
+      {error && <Error/>}
 
       {!loading && !error && (
         <div className="grid lg:grid-cols-3 gap-[30px] lg:gap-[50px]">
@@ -50,31 +51,30 @@ const Dashboard = () => {
                       Teacher
                     </span>
                     <h3 className="text-[22px] leading-9 font-bold text-headingColor mt-3">
-                      Ahmed Ali
+                      {data.FullName}
                     </h3>
                     <div className="flex items-center gap-[6px]">
-  <span className="flex items-center gap-[6px]">
-    <p className="text-headingColor text-[14px] leading-5 lg:text-[16px] lg:leading-6 font-semibold">
-      4.5
-    </p>
-    <img src={starIcon} alt="star rating" />
-  </span>
-  <span className="text-textColor text-[14px] leading-5 lg:text-[16px] lg:leading-6 font-semibold">
-    (233)
-  </span>
-</div>
-
-<div>
-  <p className="text_para font-[15px] lg:max-w-[390px] leading-6">
-    expert bio
-  </p>
-</div>
+                       <span className="flex items-center gap-[6px]">
+                          <p className="text-headingColor text-[14px] leading-5 lg:text-[16px] lg:leading-6 font-semibold">
+                             4.5
+                          </p>
+                          <img src={starIcon} alt="star rating" />
+                       </span>
+                       <span className="text-textColor text-[14px] leading-5 lg:text-[16px] lg:leading-6 font-semibold">
+                         (233)
+                       </span>
+                    </div>
+                    <div>
+                       <p className="text_para font-[15px] lg:max-w-[390px] leading-6">
+                           expert bio
+                      </p>
+                   </div>
                   </div>
                   <ExpertAbout FullName={data.FullName} about={data.about} qualifications={data.qualifications} experiences={data.experiences} />
                 </div>
               )}
-              {tab==="appointments" &&<div>appointments</div>}
-              {tab==="settings"&& <div>profile settings</div>}
+              {tab==="Appointments"&&<div>appointments</div>}
+              {tab==="settings"&& <Profile user={data}/>}
             </div>
           </div>
         </div>

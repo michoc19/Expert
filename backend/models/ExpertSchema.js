@@ -5,13 +5,17 @@ const ExpertSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   phone: { type: Number, },
+  languages:[{type:String}],
   photo: { type: String, },
   ticketPrice: { type: Number },
   role: {type: String},
   gender: { type: String, enum: ["male", "female", "other"] },
 
   // Fields for Experts  only
-  specialization: { type: String },
+  specialization: { type: String , enum: [  "SCIENTIFIC_RESEARCH", "TECHNOLOGY","EDUCATION",
+    "HEALTHCARE", "SPORTS", "AGRICULTURE", "LAW_JUSTICE","CONSTRUCTION_REAL_ESTATE","FINANCE_ECONOMICS",
+    "ENVIRONMENT_ECOLOGY", "TRAVEL_TOURISM","ARTS_ENTERTAINMENT"
+]},
   qualifications: {
     type: Array,
   },
@@ -20,7 +24,7 @@ const ExpertSchema = new mongoose.Schema({
     type: Array,
   },
 
-  bio: { type: String, maxLength: 50 },
+  bio: { type: String, maxLength: 100 },
   about: { type: String },
   timeSlots: { type: Array },
   reviews: [{ type: mongoose.Types.ObjectId, ref: "Review" }],

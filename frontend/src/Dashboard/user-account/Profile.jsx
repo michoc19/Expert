@@ -182,7 +182,7 @@ const handleChangeNumber = (value) => {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChangeNumber}
-                  defaultCountry="MA"
+                  defaultCountry="MA" 
                   className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
                   required
                 />

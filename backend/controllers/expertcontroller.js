@@ -66,23 +66,26 @@ export const getAllExpert=async(req,res)=>{
 };
 
 export const getExpertProfile = async(req,res)=>{
-    const expertId =req.params.id;
+    console.log('Expert ID:', req.userId);
+   // const expertId =req.expertId;
+    console.log(`Looking for expert with ID: ${req.userId}`);
 
     try {
-        const expert = await Expert.findById(expertId);
+        const expert = await Expert.findById(req.userId);
 
         if(!expert){
             res.status(404).json({succes:false,message:' Expert Not found'});  
         }
 
         const {password, ...rest}=expert._doc;
-        const appointments =await Booking.find({expert:expertId});
+        const appointments = await Booking.find({ expert:req.userId });
 
         res.status(200).json({succes:true,message:'profil info is getting',data:{...rest,appointments}});
 
     } catch (error) {
-        res.status(500).json({succes:false,message:'Something wnet wrong,can not get'});  
-    }
+        console.error(error);
+        res.status(500).json({succes:false, message: 'Something wnet wrong,can not get'});  
+    } 
 };
 
 
