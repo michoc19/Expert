@@ -4,11 +4,12 @@ import { authContext } from '../../context/AuthContex';
 import { useNavigate } from 'react-router-dom';
 
 const Tabs = ({ tab, setTab }) => {
-  const dispatch = useContext(authContext);
+  const { dispatch } = useContext(authContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    dispatch({ type: 'LOGOUT' });
+    console.log('Logout button clicked');
+    dispatch({ type: "LOGOUT" });
     navigate('/');
   };
 
