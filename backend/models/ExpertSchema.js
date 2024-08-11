@@ -24,8 +24,8 @@ const ExpertSchema = new mongoose.Schema({
     type: Array,
   },
 
-  bio: { type: String, maxLength: 100 },
-  about: { type: String },
+  bio: { type: String, maxLength: 700 },
+  about: { type: String,maxLength: 700 },
   timeSlots: { type: Array },
   reviews: [{ type: mongoose.Types.ObjectId, ref: "Review" }],
   averageRating: {

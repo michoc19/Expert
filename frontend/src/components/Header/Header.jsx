@@ -48,7 +48,7 @@ const Header = () => {
     handleStickyHeader();
     return () => window.removeEventListener('scroll', handleStickyHeader);
   }, []);
-
+    
   const toggleMenu = () => menuRef.current.classList.toggle('show_menu');
   return (
     <header className='header flex items-center' ref={headerRef}>

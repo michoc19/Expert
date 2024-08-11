@@ -14,7 +14,7 @@ const Dashboard = () => {
   const [tab, setTab] = useState("overview");
 
   return (
-    <section className="max-w-[1170px] px-5 mx-auto">
+    <section className="max-w-[1170px] px-5 mx-auto pb- ">
       {loading && <Loading/>}
       {error && <Error/>}
 
@@ -42,15 +42,15 @@ const Dashboard = () => {
             )}
             <div className="mt-8">
               {tab === "overview" && (
-                <div className="flex items-center gap-4 mb-10">
-                  <figure className="max-w-[200px] max-h-[200px]">
-                    <img src={data.photo} alt="Profile" className="w-full" />
+                <div className="flex items-center gap-4 mb-10 pl-4 pt-5 pb-20  rounded-lg shadow-md">
+                  <figure className="max-w-[200px] max-h-[200px] overflow-hidden ">
+                    <img src={data.photo} alt="Profile" className="w-full h-full object-cover "  style={{ borderRadius: '10px' }} />
                   </figure>
                   <div>
-                    <span className="bg-[#CCF0F7] text-irisBlueColor py-1 px-4 lg:py-2 lg:px-6 rounded text-[12px] leading-4 lg:text-[16px] lg:leading-6 font-semibold">
-                      Teacher
+                    <span className="bg-[#CCF0F7] text-irisBlueColor py-2 px-4 lg:py-2 lg:px-6 rounded text-lg font-semibold">
+                    {data.specialization}
                     </span>
-                    <h3 className="text-[22px] leading-9 font-bold text-headingColor mt-3">
+                    <h3 className="text-2xl leading-9 font-bold text-headingColor mt-3"> 
                       {data.FullName}
                     </h3>
                     <div className="flex items-center gap-[6px]">
@@ -64,13 +64,17 @@ const Dashboard = () => {
                          (233)
                        </span>
                     </div>
-                    <div>
-                       <p className="text_para font-[15px] lg:max-w-[390px] leading-6">
-                           expert bio
+                    <div className="mb-6">
+                       <p className="text-base lg:max-w-md leading-6">
+                           {data.bio}
+                      </p>
+                   </div>
+                   <div>
+                       <p className="text-base lg:max-w-md leading-6">
+                           {data.about}
                       </p>
                    </div>
                   </div>
-                  <ExpertAbout FullName={data.FullName} about={data.about} qualifications={data.qualifications} experiences={data.experiences} />
                 </div>
               )}
               {tab==="Appointments"&&<div>appointments</div>}

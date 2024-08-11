@@ -120,53 +120,52 @@ const Profile =({user}) => {
     ];
 
     return(
-        <div>
-            <h2 className="text-headingColor font-bold text-[24px] leading-9 mb-10">
+        <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6">
                 Profile Information
             </h2>
             <h1  className="mt-10">
-            <form onSubmit={submitHandler}>
+            <form onSubmit={submitHandler} className="space-y-6">
                 <div className="mb-5">
-                    <p className="form__label">Name*</p>
-                    <input 
+                <label className="block text-sm font-medium text-gray-700">Name*</label>
+                <input 
                     type="text" 
                     name="FullName" 
                     value={formData.FullName}
                     onChange={handleInputChange}
                     placeholder="Full Name"
-                    className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
+                    className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                      ></input>
                 </div>
                 <div className="mb-5">
-                    <p className="form__label">Email*</p>
-                    <input 
+                <label className="block text-sm font-medium text-gray-700">Email*</label>
+                <input 
                     type="text" 
                     name="email" 
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="Email"
-                    className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
+                    className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     readOnly
                     aria-readonly
                     disabled='true'
                      ></input>
                 </div>
                 <div className="mb-5">
-                <p className="form__label">Phone*</p>
+                <label className="block text-sm font-medium text-gray-700">Phone*</label>
                 <PhoneInput
                   placeholder="Enter your phone number"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChangeNumber}
                   defaultCountry="MA"
-                  className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
+                  className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                   required
                 />
               </div>
-              <div className="mb-5">
-              <label className="text-headingColor font-bold text-[16px] leading-7 mr-3">
-              Spoken languages :
-                  </label>
+              <div className="flex mb-5 space-x-4">
+              <div className="flex-1">
+              <label className="block text-sm font-medium text-gray-700">Spoken Languages</label>
                 <Select
                   isMulti
                   name="languages"
@@ -174,46 +173,56 @@ const Profile =({user}) => {
                   value={languageOptions.filter(option => formData.languages.includes(option.value))}
                   classNamePrefix="select"
                   onChange={handleSelectChange}
-                  className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
+                  className="basic-multi-select"
                   required
                 />
               </div>
+              <div className="flex-1">
+                <label className="block text-sm font-medium text-gray-700">Ticket Price*</label>
+                <input 
+                    type="text" 
+                    name="ticketPrice" 
+                    value={formData.ticketPrice}
+                    onChange={handleInputChange}
+                    placeholder="TicketPrice"
+                    className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    ></input>
+                </div>
+              </div>
+
               <div className="mb-5">
-                    <p className="form__label">bio*</p>
-                    <input 
+              <label className="block text-sm font-medium text-gray-700">Bio*</label>
+              <textarea  
                     type="text" 
                     name="bio" 
                     value={formData.bio}
                     onChange={handleInputChange}
                     placeholder="Bio"
-                    className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
-                    maxLength={100}
-                    ></input>
+                    className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    maxLength={700}
+                    ></textarea >
                 </div>
-                <div className="flex items-center">
-                  <label className="text-headingColor font-bold text-[16px] leading-7 mr-3">
-                    Gender:
-                  </label>
+                <div className="flex mb-5 space-x-4">
+                <div className="flex-1">
+                <label className="block text-sm font-medium text-gray-700">Gender</label>
                   <select
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
-                    className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
+                    className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="male">Male</option>
                     <option value="female">Female</option>
                     <option value="other">Other</option>
                   </select>
                 </div>
-                <div className="flex items-center">
-                  <label className="text-headingColor font-bold text-[16px] leading-7 mr-3">
-                  specialization:
-                  </label>
+                <div className="flex-1">
+                <label className="block text-sm font-medium text-gray-700">Specialization</label>
                   <select
                     name="specialization"
                     value={formData.specialization}
                     onChange={handleInputChange}
-                    className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
+                    className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="Scientific research">Scientific research</option>
                     <option value="Technology/Computer Science ">Technology/Computer Science </option>
@@ -228,28 +237,18 @@ const Profile =({user}) => {
 
                   </select>
                 </div>
-                <div className="mb-5">
-                    <p className="form__label">ticketPrice*</p>
-                    <input 
-                    type="text" 
-                    name="ticketPrice" 
-                    value={formData.ticketPrice}
-                    onChange={handleInputChange}
-                    placeholder="TicketPrice"
-                    className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
-                    ></input>
                 </div>
 
                 <div className="mb-5">
-                    <p className="form__label">About*</p>
-                    <input 
+                <label className="block text-sm font-medium text-gray-700">About*</label>
+                <input 
                     type="text" 
                     name="about" 
                     value={formData.about}
                     onChange={handleInputChange}
                     placeholder="About"
-                    className="w-full pr-4 py-3 border-b border-solid border-[#0066f6] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
-                    maxLength={100}
+                    className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                    maxLength={700}
                     ></input>
                 </div>
                 
