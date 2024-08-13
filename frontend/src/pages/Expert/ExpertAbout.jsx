@@ -6,11 +6,11 @@ const ExpertAbout = ({FullName,about,qualifications,experiences}) => {
       <div className="text-[20px] leading-[30px] text-headingColor font-semibold flex items-center gap-2">
         <h3>About</h3>
         <span className="text-irisBlueColor font-bold text-[24px] leading-9">
-          Ali ahmed
+          {FullName} (Ali ahmed)
         </span>
       </div>
-      <p className="text_para">
-        
+      <p className="text_para text-[14px] leading-5">
+        {about}
       </p>
       <div className="mt-12">
         <h3 className="text-[20px] leading-[30px] text-headingColor font-semibold">Education</h3>

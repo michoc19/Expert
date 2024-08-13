@@ -1,12 +1,13 @@
 import React from "react";
 
-const SidePanel = () => {
+const SidePanel = ({ticketPrice,timeSlots}) => {
+    //// {expert.ticketPrice}
     return (
         <div className="shadow-panel p-3 lg:p-5 rounded-md">
             <div className="flex items-center justify-between">
                 <p className="text_para mt-0 font-semibold">Ticket Price</p>
                 <span className="text-[16px] leading-7 lg:text-[22px] lg:leading-8 text-headingColor font-bold">
-                    200dh
+                    {ticketPrice}dh
                 </span>
             </div>
 
@@ -17,32 +18,24 @@ const SidePanel = () => {
             </div>
 
             <div className="mt-3">
-                <ul className="flex items-center justify-between mb-2">
-                    <li>
-                        <p className="text-[15px] leading-6 text-textColor font-semibold">
-                            mardi
-                        </p>
-                        <p className="text-[15px] leading-6 text-textColor font-semibold">
-                            4:00 PM - 9:00 PM
-                        </p>
-                    </li>
-                    <li>
-                        <p className="text-[15px] leading-6 text-textColor font-semibold">
-                            jeudi
-                        </p>
-                        <p className="text-[15px] leading-6 text-textColor font-semibold">
-                            4:00 PM - 9:00 PM
-                        </p>
-                    </li>
-                    <li>
-                        <p className="text-[15px] leading-6 text-textColor font-semibold">
-                            samedi
-                        </p>
-                        <p className="text-[15px] leading-6 text-textColor font-semibold">
-                            4:00 PM - 9:00 PM
-                        </p>
-                    </li>
-                </ul>
+            {timeSlots && timeSlots.length > 0 ? (
+                    <ul>
+                        {timeSlots.map((slot, index) => (
+                            <li key={slot._id || index} className="flex items-center justify-between mb-2">
+                                <p className="text-[15px] leading-6 text-textColor font-semibold">
+                                    {slot.day}
+                                </p>
+                                <p className="text-[15px] leading-6 text-textColor font-semibold">
+                                    {slot.startingTime} - {slot.endingTime}
+                                </p>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p className="text-[15px] leading-6 text-textColor font-semibold">
+                        No available time slots
+                    </p>
+                )}
             </div>
 
             <button className="btn px-2 w-full rounded-md">

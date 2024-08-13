@@ -9,7 +9,7 @@ import Error from '../../components/Error/Error';
 
 const Experts = () => {
 
- // const { data: experts,loading,error}=usefetchdata(`${BASE_URL}/api/v1/experts`);
+ //const { data: experts,loading,error}=usefetchdata(`${BASE_URL}/api/v1/experts`);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -50,7 +50,7 @@ const Experts = () => {
             <input
               type="search"
               className="py-4 pl-4 pr-2 bg-transparent w-full focus:outline-none placeholder:text-textColor"
-              placeholder="Search Experts"
+              placeholder="Search Experts by name or specialization"
               onChange={handleSearch}
             />
             <button 
@@ -64,11 +64,13 @@ const Experts = () => {
       </section>
       <section>
         <div className="container">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-4">
+        {loading && <Loading/>}
+        {error && <Error/>}
+          {!loading && !error && <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-4">
             {filteredExperts.map((expert) => (
-              <ExpertCard key={expert.id} expert={expert} />
+              <ExpertCard key={expert._id} expert={expert} />
             ))}
-          </div>
+          </div>}
         </div>
       </section>
       <section className="py-12">
