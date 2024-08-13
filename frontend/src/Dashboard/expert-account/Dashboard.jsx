@@ -6,7 +6,9 @@ import { BASE_URL } from "../../config";
 import Tabs from "./Tabs";
 import starIcon from "../../assets/images/starIcon.png";
 import ExpertAbout from '../../pages/Expert/ExpertAbout';
-import Profile from './Profile'
+import Profile from './Profile';
+import Appointments from './Appointments.jsx';
+
 
 const Dashboard = () => {
   const { data, loading, error } = usefetchdata(`${BASE_URL}/api/v1/experts/profile/me`);
@@ -76,8 +78,8 @@ const Dashboard = () => {
                    </div>
                   </div>
                 </div>
-              )}
-              {tab==="Appointments"&&<div>appointments</div>}
+              )} 
+              {tab==="Appointments"&&<Appointments appointments={data.appointments}/>}
               {tab==="settings"&& <Profile user={data}/>}
             </div>
           </div>

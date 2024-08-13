@@ -12,8 +12,7 @@ const ExpertCard = ({ expert }) => {
     totalRating,
     photo,
     specialization,
-    totalPatients,
-    hospital,
+    totalUsers,  
   } = expert;
 
   return (

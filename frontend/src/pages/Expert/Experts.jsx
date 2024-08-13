@@ -2,8 +2,15 @@ import { useState, useEffect } from "react";
 import ExpertCard from "../../components/Experts/ExpertCard";
 import { experts } from "../../assets/data/experts";
 import Testimonial from '../../components/Testimonial/Testimonial';
+import { BASE_URL } from '../../config';
+import usefetchdata from '../../hooks/usefetchdata';
+import Loading from '../../components/loader/loading';
+import Error from '../../components/Error/Error';
 
 const Experts = () => {
+
+ // const { data: experts,loading,error}=usefetchdata(`${BASE_URL}/api/v1/experts`);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filteredExperts, setFilteredExperts] = useState(experts);

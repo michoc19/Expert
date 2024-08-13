@@ -7,7 +7,7 @@ import 'react-phone-number-input/style.css';
 import HashLoader from "react-spinners/HashLoader.js";
 import { authContext } from '../../context/AuthContex.jsx';
 import Select from 'react-select'; 
-
+import { AiOutlineDelete } from "react-icons/ai";
 
 
 const Profile =({user}) => {
@@ -54,12 +54,43 @@ const Profile =({user}) => {
     const UpdateProfilHandler = ()=>{
         e.preventDefault();
         dispatch({ type: 'UPDATE_USER', });
+    };  
+
+    const addItem = (key, item) => {
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [key]: Array.isArray(prevFormData[key]) ? [...prevFormData[key], item] : [item]
+        }));
     };
+    
+
+    const handleReusableInputChangeFunc = (key, index, event) => {
+        const { name, value } = event.target;
+        setFormData(prevFormData => {
+            const updatedItems = Array.isArray(prevFormData[key]) ? [...prevFormData[key]] : [];
+            if (index < updatedItems.length) {
+                updatedItems[index] = { ...updatedItems[index], [name]: value };
+            }
+            return {
+                ...prevFormData,
+                [key]: updatedItems
+            };
+        });
+    };
+    
+
+    const deleteItem = (key, index) => {
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [key]: Array.isArray(prevFormData[key]) ? prevFormData[key].filter((_, i) => i !== index) : []
+        }));
+    };
+    
 
     useEffect(()=>{
         setFormData({FullName:user.FullName,email:user.email,phone:user.phone,languages: user.languages || [],
             bio:user.bio  || '' ,photo:user.photo,gender:user.gender,specialization:user.specialization  || '' ,role:user.role,
-            ticketPrice:user.ticketPrice  || 0,about:user.about  || '' ,_id:user._id  || '' })
+            ticketPrice:user.ticketPrice  || 0,timeSlots:user.timeSlots,about:user.about  || '' ,_id:user._id  || '' })
     },[user]);
 
 
@@ -68,6 +99,22 @@ const Profile =({user}) => {
         const selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
         setFormData({ ...formData, languages: selectedValues });
     };
+
+    const addTimeSlot = (e) => {
+        e.preventDefault();
+        addItem("timeSlots",{ day: "Sunday", startingTime: "10:00", endingTime: "10:30" });
+    };
+    
+
+    const handleTimeSlotChange = (e,index) =>{
+        handleReusableInputChangeFunc("timeSlots",index,e);
+    };
+
+    const deleteTimeSlots = (e, index) => {
+            e.preventDefault();
+            deleteItem("timeSlots",index);
+        };
+        
 
     const submitHandler = async (event)=>{
         event.preventDefault();
@@ -238,6 +285,57 @@ const Profile =({user}) => {
                   </select>
                 </div>
                 </div>
+                <div className="mb-5">
+                    <p className="form__label">Time Slots</p>
+                    {formData.timeSlots?.map((item,index)=>(
+                        <div key={index}>
+                            <div>
+                                <div className="grid grid-cols-2 md:grid-cols-4 mb-[30px]  gap-5">
+                                    <div>
+                                        <p className="form__label"> Day</p>
+                                        <select onChange={(e)=> handleTimeSlotChange(e,index)} name="day" value={item.day} className="form__input py-3.5" >
+                                            <option value="saturday">Saturday</option>
+                                            <option value="sunday">Sunday</option>
+                                            <option value="monday">Monday</option>
+                                            <option value="tuesday">Tuesday</option>
+                                            <option value="wednesday">Wednesday</option>
+                                            <option value="thursday">Thursday</option>
+                                            <option value="friday">Friday</option>
+                                            <option value=""></option>
+
+                                        </select>
+                                    </div>
+                                    <div >
+                                        <label className="block text-sm font-medium text-gray-700">Starting Time*</label>
+                                        <input 
+                                         type="time" 
+                                         name="startingTime" 
+                                         value={item.startingTime}
+                                         className="form__input py-3.5"
+                                         onChange={(e)=> handleTimeSlotChange(e,index)}
+                                         />
+                                    </div>
+                                    <div >
+                                        <label className="block text-sm font-medium text-gray-700">Ending Time*</label>
+                                        <input 
+                                         type="time" 
+                                         name="endingTime" 
+                                         value={item.endingTime}
+                                         className="form__input py-3.5"
+                                         onChange={(e)=> handleTimeSlotChange(e,index)}
+                                         />
+                                    </div>
+                                    <div onClick={(e) => deleteTimeSlots(e, index)} className="flex items-center">
+                                        <button className="bg-red-600 p-2 rounded-full text-white text-[18px] cursor-pointer mt-6">
+                                            <AiOutlineDelete/>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                       <button onClick={addTimeSlot} className="bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer "> Add TimeSlot</button>
+                </div>
 
                 <div className="mb-5">
                 <label className="block text-sm font-medium text-gray-700">About*</label>
@@ -246,7 +344,7 @@ const Profile =({user}) => {
                     name="about" 
                     value={formData.about}
                     onChange={handleInputChange}
-                    placeholder="About"
+                    placeholder="Write About You"
                     className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     maxLength={700}
                     ></input>
