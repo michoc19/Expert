@@ -9,43 +9,35 @@ import Error from '../../components/Error/Error';
 
 const Experts = () => {
 
- //const { data: experts,loading,error}=usefetchdata(`${BASE_URL}/api/v1/experts`);
+ const { data: experts,loading,error}=usefetchdata(`${BASE_URL}/api/v1/experts`);
 
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [filteredExperts, setFilteredExperts] = useState(experts);
+  //const [loading, setLoading] = useState(true);
+  //const [error, setError] = useState(null);
+  const [filteredExperts, setFilteredExperts] = useState([]);
 
   useEffect(() => {
-    // Simuler le chargement et la gestion des erreurs
-    const fetchExperts = async () => {
-      try {
-        // Ici, vous pouvez ajouter la logique pour récupérer les experts depuis une API si nécessaire
-        // Exemple : const response = await fetch('/api/experts');
-        // const data = await response.json();
-        setLoading(false);
-      } catch (err) {
-        setError(err);
-      }
-    };
-    fetchExperts();
-  }, []);
+    if (experts) {
+        setFilteredExperts(experts);
+    }
+}, [experts]);
 
-  const handleSearch = (event) => {
+const handleSearch = (event) => {
     const query = event.target.value.toLowerCase();
     const filtered = experts.filter(expert =>
-      expert.name.toLowerCase().includes(query)
+        expert.FullName.toLowerCase().includes(query) ||
+        expert.specialization.toLowerCase().includes(query)
     );
     setFilteredExperts(filtered);
-  };
+};
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading experts: {error.message}</p>;
+if (loading) return <Loading />;
+if (error) return <Error />;  
 
   return (
     <>
       <section className="bg-[#f9f9f9]">
         <div className="container text-center">
-          <h2 className="heading">Find a Doctor</h2>
+          <h2 className="heading">Find a Expert </h2>
           <div className="max-w-[570px] mt-[30px] mx-auto bg-[#0066ff2c] rounded-md flex items-center justify-between">
             <input
               type="search"

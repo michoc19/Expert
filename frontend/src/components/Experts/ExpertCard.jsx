@@ -5,7 +5,6 @@ import starIcon from '../../assets/images/starIcon.png';
 
 const ExpertCard = ({ expert }) => {
 
-
   const {
     FullName,
     averageRating,
@@ -13,6 +12,7 @@ const ExpertCard = ({ expert }) => {
     photo,
     specialization,
     totalUsers,  
+    languages,
   } = expert;
 
   return (
@@ -20,7 +20,7 @@ const ExpertCard = ({ expert }) => {
       <div className="flex justify-center">
         <img src={photo} className="w-full h-48 object-cover rounded-lg" alt={`Photo of ${FullName}`} />
       </div>
-      <h2 classFullName="text-lg lg:text-xl font-bold mt-3 lg:mt-5 text-headingColor">
+      <h2 className="text-lg lg:text-xl font-bold mt-3 lg:mt-5 text-headingColor">
         {FullName}
       </h2>
       <div className="mt-2 lg:mt-4 flex items-center justify-between">

@@ -4,18 +4,26 @@ const SidePanel = ({ticketPrice,timeSlots}) => {
     //// {expert.ticketPrice}
     return (
         <div className="shadow-panel p-3 lg:p-5 rounded-md">
-            <div className="flex items-center justify-between">
-                <p className="text_para mt-0 font-semibold">Ticket Price</p>
+            {ticketPrice ?(
+                <div className="flex items-center justify-between">
+                <h1 className=" text-[16px] text_para mt-0 font-semibold">Ticket Price</h1>
                 <span className="text-[16px] leading-7 lg:text-[22px] lg:leading-8 text-headingColor font-bold">
                     {ticketPrice}dh
                 </span>
             </div>
-
+            ):(<div className="flex items-center justify-between">
+                <p className="text-[16px] leading-6 text-textColor font-semibold">No Ticket Price</p>
+                <span className="text-[16px] leading-7 lg:text-[22px] lg:leading-8 text-headingColor font-bold">
+                    {ticketPrice}
+                </span>
+            </div>)}
+            
+            {timeSlots && timeSlots.length > 0 ?(
             <div className="mt-[30px]">
-                <p className="text_para mt-0 font-semibold text-headingColor">
+                <p className="text-[16px] text_para mt-0 font-semibold text-headingColor">
                     Available Time Slots:
                 </p>
-            </div>
+            </div>): ""}
 
             <div className="mt-3">
             {timeSlots && timeSlots.length > 0 ? (
@@ -32,7 +40,7 @@ const SidePanel = ({ticketPrice,timeSlots}) => {
                         ))}
                     </ul>
                 ) : (
-                    <p className="text-[15px] leading-6 text-textColor font-semibold">
+                    <p className="text-[17px] leading-6 text-textColor font-semibold">
                         No available time slots
                     </p>
                 )}
