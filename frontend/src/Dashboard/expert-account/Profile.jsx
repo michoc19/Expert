@@ -114,6 +114,16 @@ const Profile =({user}) => {
             e.preventDefault();
             deleteItem("timeSlots",index);
         };
+    
+     const generateTimeOptions = () => {
+            const options = [];
+            for (let i = 0; i < 24; i++) {
+              const hour = i.toString().padStart(2, '0');
+              options.push(<option key={hour} value={`${hour}:00`}>{`${hour}:00`}</option>);
+              options.push(<option key={`${hour}30`} value={`${hour}:30`}>{`${hour}:30`}</option>);
+            }
+            return options;
+          };
         
 
     const submitHandler = async (event)=>{
@@ -123,6 +133,17 @@ const Profile =({user}) => {
            toast.error('Please select at least one language.');
            return;
        }
+
+       if (formData.bio.length > 300) {
+        toast.error('Bio must be 300 characters or less.'); // Affiche un message d'erreur si la bio dépasse 300 caractères
+        return;
+    }
+
+    // Validation pour la longueur de la section "about"
+    if (formData.about.length > 700) {
+        toast.error('About section must be 700 characters or less.'); // Affiche un message d'erreur si "about" dépasse 700 caractères
+        return;
+    }
    
         setLoading(true);
         console.log('Submitting form with data:', formData);    
@@ -246,7 +267,7 @@ const Profile =({user}) => {
                     onChange={handleInputChange}
                     placeholder="Bio"
                     className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-                    maxLength={700}
+                    maxLength={300}
                     ></textarea >
                 </div>
                 <div className="flex mb-5 space-x-4">
@@ -307,23 +328,26 @@ const Profile =({user}) => {
                                     </div>
                                     <div >
                                         <label className="block text-sm font-medium text-gray-700">Starting Time*</label>
-                                        <input 
+                                        <select 
                                          type="time" 
                                          name="startingTime" 
                                          value={item.startingTime}
                                          className="form__input py-3.5"
                                          onChange={(e)=> handleTimeSlotChange(e,index)}
-                                         />
+                                         >
+                                                  {generateTimeOptions()}
+                                         </select>
                                     </div>
                                     <div >
                                         <label className="block text-sm font-medium text-gray-700">Ending Time*</label>
-                                        <input 
+                                        <select 
                                          type="time" 
                                          name="endingTime" 
                                          value={item.endingTime}
                                          className="form__input py-3.5"
                                          onChange={(e)=> handleTimeSlotChange(e,index)}
-                                         />
+                                         >      {generateTimeOptions()}
+                                         </select>
                                     </div>
                                     <div onClick={(e) => deleteTimeSlots(e, index)} className="flex items-center">
                                         <button className="bg-red-600 p-2 rounded-full text-white text-[18px] cursor-pointer mt-6">
@@ -339,7 +363,7 @@ const Profile =({user}) => {
 
                 <div className="mb-5">
                 <label className="block text-sm font-medium text-gray-700">About*</label>
-                <input 
+                <textarea 
                     type="text" 
                     name="about" 
                     value={formData.about}
@@ -347,7 +371,7 @@ const Profile =({user}) => {
                     placeholder="Write About You"
                     className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                     maxLength={700}
-                    ></input>
+                    ></textarea>
                 </div>
                 
                 <div className="mt-7">

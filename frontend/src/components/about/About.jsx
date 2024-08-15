@@ -10,7 +10,7 @@ const About = () => {
                 <div className="flex justify-between gap-6 lg:gap-8 flex-col lg:flex-row">
                     {/* Container for the about image */}
                     <div className="relative w-full lg:w-1/2 xl:w-[770px] z-10 order-2 lg:order-1 flex justify-center lg:justify-start">
-                        <img src={imgg} alt="About" className="w-3/4 lg:w-[80%] xl:w-[70%] h-auto" />
+                        <img src={imgg} alt="About" className="w-3/4 lg:w-[80%] xl:w-[70%] h-auto ml-[10px]" style={{ borderRadius: '10px' }} />
                         <div className="absolute bottom-4 w-[200px] md:w-[250px] right-[-5%] md:right-[-5%] lg:right-[-10%] xl:right-[-15%]">
                             <img src={aboutCardImg} alt="About Card" className="w-full h-auto mb-20" />
                         </div>

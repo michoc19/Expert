@@ -140,31 +140,31 @@ const Home = () => {
 
       {/* How It Works Section */}
       <section className="flex flex-col lg:flex-row items-center mt-[50px] lg:mt-0">
-        <div className="xl:w-[670px]">
+        <div className="xl:w-[670px] pl-[40px]">
           <h2 className="heading">
             COMMENT KHABIRY FONCTIONNE ?
           </h2>
-          <ul className="pl-4">
-            <li className="text_para">1. Sélectionnez l'expert idéal</li>
-            <li className="text_para">2. Planifiez votre consultation</li>
-            <li className="text_para">3. Consultez par vidéo</li>
+          <ul className="pl-4 mt-[30px]">
+            <li className="text_para text-lg">1. Sélectionnez l'expert idéal</li>
+            <li className="text_para text-lg">2. Planifiez votre consultation</li>
+            <li className="text_para text-lg">3. Consultez par vidéo</li>
           </ul>
           <Link to="/">
             <button className="btn">Learn More</button>
           </Link>
         </div>
         <div className="relative z-10 xl:w-[770px] flex justify-end mt-[50px] lg:mt-0">
-          <img src={featureImg} className="w-3/4" alt="Feature" />
-          <div className="w-[150px] lg:w-[248px] bg-white absolute left-0 md:bottom-[100px] md:left-5 z-20 p-2 pb-3 lg:pt-4 lg:px-4 lg:pb-[26px] rounded-[10px]">
-            {/* Content inside the absolute div if needed */}
-          </div>
+          <img src={featureImg} className="w-3/4 mr-[40px]" alt="Feature" style={{ borderRadius: '15px' }} />
+          {/*<div className="w-[150px] lg:w-[248px] bg-white absolute left-0 md:bottom-[100px] md:left-5 z-20 p-2 pb-3 lg:pt-4 lg:px-4 lg:pb-[26px] rounded-[10px]">
+            {/ Content inside the absolute div if needed /}
+          </div>*/}
         </div>
       </section>
       <section>
   <div className="container">
     <div className="xl:w-[470px] mx-auto">
       <h2 className="heading text-center">Our great Experts</h2>
-      <p className="text_para text-center">
+      <p className="text_para text-center text-lg">
       Consultez les meilleurs, sans vous déplacer
       </p>
     </div>
@@ -174,14 +174,14 @@ const Home = () => {
 <section>
   <div className="container">
     <div className="flex justify-between gap-[50px] lg:gap-0">
-      <div className="w-1/2 hidden md:block">
-        <img src={faqImg} alt="" />
+      <div className="w-1/2 hidden md:block mr-[30px] ml-[10px]" >
+        <img src={faqImg} alt="" style={{ borderRadius: '10px' }} />
       </div>
-      <div className="w-full md:w-1/2">
-        <h2 className="heading">
-          Most questions by our beloved patients
+      <div className="w-full md:w-1/2 mr-[20px]">
+        <h2 className="heading mb-[25px]">
+          Most questions by our beloved user
         </h2>
-        <FaqList />
+        <FaqList /> 
       </div>
     </div>
   </div>

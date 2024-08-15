@@ -15,10 +15,11 @@ const ExpertCard = ({ expert }) => {
     languages,
   } = expert;
 
-  return (
+  return (  
     <div className="p-3 lg:p-5 bg-white shadow-md rounded-lg">
       <div className="flex justify-center">
-        <img src={photo} className="w-full h-48 object-cover rounded-lg" alt={`Photo of ${FullName}`} />
+        {/*<img src={photo} className="w-full h-48 object-cover rounded-lg" alt={`Photo of ${FullName}`} />*/}
+        <img src={photo} alt="Profile of ${FullName}" className="w-full h-full object-cover "  style={{ borderRadius: '10px' }} />
       </div>
       <h2 className="text-lg lg:text-xl font-bold mt-3 lg:mt-5 text-headingColor">
         {FullName}
