@@ -64,7 +64,7 @@ const Home = () => {
         <div className="container">
           <div className="lg:w-[470px] mx-auto">
             <h2 className="heading text-center">Providing the best consulting services</h2>
-            <p className='text_para text-center'>Consulting Is More Than Giving Advice</p>
+            <p className='text_para text-center text-lg'>Consulting Is More Than Giving Advice</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-[30px] mt-[30px] lg:mt-[55px]">
             {/* Service 1 */}

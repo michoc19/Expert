@@ -50,7 +50,7 @@ export const getAllExpert=async(req,res)=>{
             experts=await Expert.find({
                 isApproved:"approved",
                 $or:[
-                    {name:{$regex:query,$options:"i" } },
+                    {FullName:{$regex:query,$options:"i" } },
                     {specialization:{$regex:query,$options:"i" }},
                 ],
                 }).select("-password");

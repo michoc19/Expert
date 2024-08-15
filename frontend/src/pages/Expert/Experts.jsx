@@ -8,27 +8,36 @@ import Loading from '../../components/loader/loading';
 import Error from '../../components/Error/Error';
 
 const Experts = () => {
-
- const { data: experts,loading,error}=usefetchdata(`${BASE_URL}/api/v1/experts`);
+  const [query,setQuery] =useState('');
+  const [debounceQuery,setDebounceQuery]=useState('');
 
   //const [loading, setLoading] = useState(true);
   //const [error, setError] = useState(null);
   const [filteredExperts, setFilteredExperts] = useState([]);
 
-  useEffect(() => {
+ {/* useEffect(() => {
     if (experts) {
         setFilteredExperts(experts);
     }
-}, [experts]);
+}, [experts]);*/}
 
-const handleSearch = (event) => {
-    const query = event.target.value.toLowerCase();
-    const filtered = experts.filter(expert =>
-        expert.FullName.toLowerCase().includes(query) ||
-        expert.specialization.toLowerCase().includes(query)
-    );
-    setFilteredExperts(filtered);
+const handleSearch = () => {  
+  setDebounceQuery(query.trim());
+
+    console.log('handle Search');
 };
+
+useEffect(()=>{
+  const timeout = setTimeout(() => {
+    setDebounceQuery(query);
+  }, 700);
+  return() => clearTimeout(timeout);
+},[query]);
+
+
+
+const { data: experts,loading,error}=usefetchdata(`${BASE_URL}/api/v1/experts?query=${debounceQuery}`);
+
 
 if (loading) return <Loading />;
 if (error) return <Error />;  
@@ -43,11 +52,11 @@ if (error) return <Error />;
               type="search"
               className="py-4 pl-4 pr-2 bg-transparent w-full focus:outline-none placeholder:text-textColor"
               placeholder="Search Experts by name or specialization"
-              onChange={handleSearch}
-            />
+              value={query}
+              onChange={e => setQuery(e.target.value)}            />
             <button 
               className="btn mt-0 rounded-r-md"
-              onClick={() => handleSearch({ target: { value: document.querySelector('input[type="search"]').value } })}
+              onClick={handleSearch}
             >
               Search
             </button>
@@ -58,11 +67,15 @@ if (error) return <Error />;
         <div className="container">
         {loading && <Loading/>}
         {error && <Error/>}
-          {!loading && !error && <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-4">
-            {filteredExperts.map((expert) => (
+          {!loading && !error && (<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 lg:grid-cols-4">
+            {experts.length > 0 ? (experts.map((expert) => (
               <ExpertCard key={expert._id} expert={expert} />
-            ))}
-          </div>}
+            ))
+          ):(
+            <p>No experts found.</p>
+          )}
+          </div>
+          )}
         </div>
       </section>
       <section className="py-12">
