@@ -31,7 +31,7 @@ const SidePanel = ({ticketPrice,timeSlots}) => {
                         {timeSlots.map((slot, index) => (
                             <li key={slot._id || index} className="flex items-center justify-between mb-2">
                                 <p className="text-[15px] leading-6 text-textColor font-semibold">
-                                    {slot.day}
+                                    {slot.day.charAt(0).toUpperCase()+slot.day.slice(1)}
                                 </p>
                                 <p className="text-[15px] leading-6 text-textColor font-semibold">
                                     {slot.startingTime} - {slot.endingTime}

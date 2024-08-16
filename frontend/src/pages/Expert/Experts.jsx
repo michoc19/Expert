@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import ExpertCard from "../../components/Experts/ExpertCard";
+import { useLocation } from "react-router-dom";
 import { experts } from "../../assets/data/experts";
 import Testimonial from '../../components/Testimonial/Testimonial';
 import { BASE_URL } from '../../config';
@@ -10,6 +11,9 @@ import Error from '../../components/Error/Error';
 const Experts = () => {
   const [query,setQuery] =useState('');
   const [debounceQuery,setDebounceQuery]=useState('');
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const specializationQuery = params.get('specialization') || '';
 
   //const [loading, setLoading] = useState(true);
   //const [error, setError] = useState(null);
@@ -21,18 +25,19 @@ const Experts = () => {
     }
 }, [experts]);*/}
 
-const handleSearch = () => {  
-  setDebounceQuery(query.trim());
+useEffect(() => {
+  if (specializationQuery) {
+    setQuery(specializationQuery);
+    setDebounceQuery(specializationQuery);
+  }
+}, [specializationQuery]);
 
-    console.log('handle Search');
-};
-
-useEffect(()=>{
+useEffect(() => {
   const timeout = setTimeout(() => {
-    setDebounceQuery(query);
+    setDebounceQuery(query.toLowerCase());
   }, 700);
-  return() => clearTimeout(timeout);
-},[query]);
+  return () => clearTimeout(timeout);
+}, [query]);
 
 
 
@@ -56,7 +61,7 @@ if (error) return <Error />;
               onChange={e => setQuery(e.target.value)}            />
             <button 
               className="btn mt-0 rounded-r-md"
-              onClick={handleSearch}
+              onClick={() => setDebounceQuery(query.trim().toLowerCase())}
             >
               Search
             </button>

@@ -293,15 +293,19 @@ const Profile =({user}) => {
                     className="w-full p-3 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
                   >
                     <option value="Scientific research">Scientific research</option>
-                    <option value="Technology/Computer Science ">Technology/Computer Science </option>
+                    <option value="Technology">Technology</option>
                     <option value="Education">Education</option>
-                    <option value="Healthcare ">Healthcare </option>
+                    <option value="Healthcare">Healthcare </option>
                     <option value="Sports">Sports</option>
                     <option value="Agriculture">Agriculture </option>
                     <option value="Law/Justice">Law/Justice </option>
                     <option value="Construction/Real Estate">Construction/Real Estate</option>
                     <option value="Finance/Economics">Finance/Economics </option>
                     <option value="Environment/Ecology">Environment/Ecology </option>
+                    <option value="ECOMMERCE & DROPSHIPPING">ECOMMERCE & DROPSHIPPING </option>
+                    <option value="IMMOBILIER">IMMOBILIER </option>
+
+
 
                   </select>
                 </div>

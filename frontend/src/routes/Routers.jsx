@@ -4,7 +4,7 @@ import Home from '../pages/Home';
 import Signup from '../pages/Signup';
 import Services from '../pages/Services';
 import Contact from '../pages/Contact';
-import Experts from '../pages/Expert/Experts';
+import Experts from '../../src/pages/Expert/Experts';
 import Expertdetail from '../pages/Expert/Expertdetail';
 // import EventBook from '../pages/EventBook'; // Ensure this import path is correct
 import Login from '../pages/Login';

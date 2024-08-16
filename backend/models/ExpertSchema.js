@@ -12,9 +12,9 @@ const ExpertSchema = new mongoose.Schema({
   gender: { type: String, enum: ["male", "female", "other"] },
 
   // Fields for Experts  only
-  specialization: { type: String , enum: [  "SCIENTIFIC_RESEARCH", "TECHNOLOGY","EDUCATION",
-    "HEALTHCARE", "SPORTS", "AGRICULTURE", "LAW_JUSTICE","CONSTRUCTION_REAL_ESTATE","FINANCE_ECONOMICS",
-    "ENVIRONMENT_ECOLOGY", "TRAVEL_TOURISM","ARTS_ENTERTAINMENT"
+  specialization: { type: String , enum: [  "Scientific research", "Technology","Education","ECOMMERCE & DROPSHIPPING",
+    "HEALTHCARE", "SPORTS", "Agriculture", "LAW JUSTICE","CONSTRUCTION REAL ESTATE","FINANCE ECONOMICS",
+    "ENVIRONMENT ECOLOGY", "TRAVEL TOURISM","IMMOBILIER"
 ]},
   qualifications: {
     type: Array,
