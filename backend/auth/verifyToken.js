@@ -20,15 +20,17 @@ export const authenticate = async(req,res,next)=>{
 
         req.userId=decoded.id
         req.role=decoded.role
+        console.log('Token verified successfully:', decoded);
         next();  //must be call the next function 
     } catch (error) {
+        console.error('Error verifying token:', error);
         if(error.name=="TokenExpiredError"){
             return res.status(401).json({message:"Token is expired"})
         }
         return res.status(401).json({success:false,message:"Invalide Token "});   
     }
 };
-export const restrict= roles=>async(req,res,next)=>{//roles table of roles  they are authorized
+export const restrict= (roles) =>async(req,res,next)=>{//roles table of roles  they are authorized
     const userId = req.userId;
     let user;
     const USer = await User.findById(userId);
@@ -40,7 +42,7 @@ export const restrict= roles=>async(req,res,next)=>{//roles table of roles  they
     if(expert){
         user=expert;
     }
-
+    console.log(user.role);
     if(!roles.includes(user.role)){
         return res.status(401).json({success:false,message:"You're not authorized"});
     }

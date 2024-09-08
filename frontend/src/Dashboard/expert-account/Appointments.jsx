@@ -9,7 +9,8 @@ const Appointments =({appointments})=>{
                 <th scope="col" className="px-6 py-3">GENDER</th>
                 <th scope="col" className="px-6 py-3">PAYMENT</th>
                 <th scope="col" className="px-6 py-3">PRICE</th>
-                <th scope="col" className="px-6 py-3">BOOKED ON</th>
+                <th scope="col" className="px-6 py-3">Date & Time</th>
+                <th scope="col" className="px-6 py-3">Status</th>
 
             </tr>
         </thead>
@@ -18,7 +19,7 @@ const Appointments =({appointments})=>{
                 <th scope="row" className="flex items-center px-6 py-4 text-gray-900 whitespace-nowrap">
                     <img src="{item.user.photo}" className="w-10 h-10 rounded-full" alt=""/>
                     <div className="pl-3">
-                        <div className="text-base font-semibold">{item.user.name}</div>
+                        <div className="text-base font-semibold">{item.user.FullName}</div>
                         <div className="text-normal text-gray-500">{item.user.email}</div>
 
                     </div>

@@ -8,6 +8,7 @@ import HashLoader from "react-spinners/HashLoader.js";
 import { authContext } from '../../context/AuthContex.jsx';
 import Select from 'react-select'; 
 import { AiOutlineDelete } from "react-icons/ai";
+import ProCalendar from "./ProCalendar.jsx";
 
 
 const Profile =({user}) => {
@@ -15,6 +16,8 @@ const Profile =({user}) => {
     const [loading, setLoading] = useState(false);
     const { dispatch } = useContext(authContext);
     const navigate = useNavigate();
+    const [timeSlots, setTimeSlots] = useState([]);
+
 
 
 
@@ -105,6 +108,11 @@ const Profile =({user}) => {
         addItem("timeSlots",{ day: "Sunday", startingTime: "10:00", endingTime: "10:30" });
     };
     
+
+    /*const handleTimeSlotChange = (newTimeSlots) => {
+      setFormData({ ...formData, timeSlots: newTimeSlots });
+
+    };*/
 
     const handleTimeSlotChange = (e,index) =>{
         handleReusableInputChangeFunc("timeSlots",index,e);
@@ -364,6 +372,9 @@ const Profile =({user}) => {
                     ))}
                        <button onClick={addTimeSlot} className="bg-[#000] py-2 px-5 rounded text-white h-fit cursor-pointer "> Add TimeSlot</button>
                 </div>
+                {/*<div className="mb-5">
+                <ProCalendar  timeSlots={formData.timeSlots} onTimeSlotChange={handleTimeSlotChange} />
+                </div>*/}
 
                 <div className="mb-5">
                 <label className="block text-sm font-medium text-gray-700">About*</label>

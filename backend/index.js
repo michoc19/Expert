@@ -7,6 +7,7 @@ import autRoute from './routes/auth.js'
 import userRoute from "./routes/user.js"
 import ExpertRoute from "./routes/expert.js"
 import ReviewRoute from "./routes/review.js"
+import BookingRoute from "./routes/booking.js"
 
 
 dotenv.config()
@@ -26,7 +27,7 @@ app.get("/",(req,res)=>{
 mongoose.set('strictQuery', false) 
 const connectDB =async()=>{
     try {
-        await mongoose.connect(process.env.MONGO_URL);
+        await mongoose.connect('mongodb://localhost:27017/');//process.env.MONGO_URL
          
         console.log("MongoDB is connected");
     } catch (err) {
@@ -44,6 +45,8 @@ app.use('/api/v1/auth',autRoute);
 app.use('/api/v1/users',userRoute);
 app.use('/api/v1/experts',ExpertRoute);
 app.use('/api/v1/reviews',ReviewRoute);
+app.use('/api/v1/bookings',BookingRoute);
+
 
 
 

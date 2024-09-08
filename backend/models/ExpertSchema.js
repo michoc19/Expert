@@ -1,4 +1,31 @@
 import mongoose from "mongoose";
+import TimeSlot from "./TimeSlot.js";
+
+const timeSlotSchema = new mongoose.Schema({
+  day: {
+      type: String, // e.g., 'Monday', '2024-08-05', etc.
+      required: true
+  },
+  startingTime:{
+    type:String,
+    required:true
+  },
+  endingTime:{
+    type:String,
+    required:true
+  },
+  /*slots: [{
+      start: {
+          type: String, // e.g., '09:00'
+          required: true
+      },
+      end: {
+          type: String, // e.g., '17:00'
+          required: true
+      }
+  }]*/
+});
+
 
 const ExpertSchema = new mongoose.Schema({
   FullName: { type: String, required: true },
@@ -26,7 +53,9 @@ const ExpertSchema = new mongoose.Schema({
 
   bio: { type: String, maxLength: 300 },
   about: { type: String,maxLength: 700 },
-  timeSlots: { type: Array },
+  timeSlots: [TimeSlot.schema],
+  //
+  //timeSlots: { type: Array },
   reviews: [{ type: mongoose.Types.ObjectId, ref: "Review" }],
   averageRating: {
     type: Number,
@@ -44,4 +73,7 @@ const ExpertSchema = new mongoose.Schema({
   appointments: [{ type: mongoose.Types.ObjectId, ref: "Appointment" }],
 });
 
-export default mongoose.model("Expert", ExpertSchema); 
+//export default mongoose.model("Expert", ExpertSchema); 
+
+const Expert = mongoose.model("Expert", ExpertSchema); 
+export default Expert;

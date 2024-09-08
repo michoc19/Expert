@@ -10,7 +10,7 @@ import Error from "../../components/Error/Error";
 
 const MyAccount = () => {
   const { dispatch } = useContext(authContext);
-  const [tab, setTab] = useState('bookings');
+  const [tab, setTab] = useState('settings');
 
   const {data:userData,loading,error }=usefetchdata(`${BASE_URL}/api/v1/users/profile/me`)
 
@@ -56,11 +56,11 @@ const MyAccount = () => {
             >
               Logout
             </button>
-            <button
+            {/*<button
               className="w-full bg-red-600 mt-4 p-3 text-[16px] leading-7 rounded-md text-white"
             >
               Delete account
-            </button>
+            </button>*/}
           </div>
         </div>
 

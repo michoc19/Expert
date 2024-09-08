@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useContext} from 'react';
 import doctorImg from '../../assets/images/doctorimg01.jpg';
 import starIcon from '../../assets/images/starIcon.png';
 import ExpertAbout from '../Expert/ExpertAbout';
@@ -9,11 +9,13 @@ import usefetchdata from '../../hooks/usefetchdata';
 import Loading from '../../components/loader/loading';
 import Error from '../../components/Error/Error';
 import { useParams } from 'react-router-dom';
+import { authContext } from '../../context/AuthContex';
 
 const ExpertDetails = () => {
     const {id}=useParams();
     const [tab, setTab] = useState('about');
     const { data: expert,loading,error}=usefetchdata(`${BASE_URL}/api/v1/experts/${id}`);//1
+    const { user,token } = useContext(authContext);
 
     const {
         FullName,
@@ -93,7 +95,7 @@ const ExpertDetails = () => {
                         </div>
                     </div>
                     <div>
-                      <SidePanel ticketPrice={expert.ticketPrice} timeSlots={expert.timeSlots}/>
+                      <SidePanel ticketPrice={expert.ticketPrice} timeSlots={expert.timeSlots} expert={expert} user={user} token={token} />
                     </div>
                 </div>}
             </div>

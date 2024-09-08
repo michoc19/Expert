@@ -75,12 +75,29 @@ export const getUserProfile = async(req,res)=>{
 export const getMyAppointments = async(req,res)=>{
 
     try {
+        console.log("User ID:", req.userId);
+
         //step1 
         const bookings = await Booking.find({user:req.userId});
+        if (!bookings.length) {
+            return res.status(404).json({ success: false, message: 'No bookings found for this user' });
+        }
+
+
         //step2
-        const expertIds =bookings.map(el=>el.dotor.id);
+        const expertIds =bookings.map(el=>el.expert);
+        console.log("Expert IDs:", expertIds);
+
+        if (!experts.length) {
+            return res.status(404).json({success: false, message: 'No experts found for these bookings'});
+        }
         //step3
-        const experts = await Expert.find({_id: {$in:doctorIds}}).select('-password');
+        const experts = await Expert.find({_id: {$in:expertIds}}).select('-password');
+        console.log("Experts found:", experts);
+        if (!bookings.length) {
+            return res.status(404).json({success: false, message: 'No bookings found for this user'});
+        }
+
 
         res.status(200).json({succes:true,message:'Appointments are getting',data:experts});
 
